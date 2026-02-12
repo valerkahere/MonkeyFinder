@@ -1,4 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
+using MonkeyFinder.View;
+using MonkeyFinder.Services;
+using MonkeyFinder.ViewModel;
+
 
 namespace MonkeyFinder
 {
@@ -16,8 +20,13 @@ namespace MonkeyFinder
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
+
+            builder.Services.AddTransient<MainPage>();
+            // addTransient means getting new instance each time
+            builder.Services.AddSingleton<MonkeyService>();
+            builder.Services.AddTransient<MonkeyViewModel>();
 
             return builder.Build();
         }
